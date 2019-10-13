@@ -19,6 +19,9 @@ class KNN():
         - y: A numpy array of shape (N,) containing the training labels, where
              y[i] is the label for X[i].
         """
+	
+	self.X_train = X
+	self.Y_train = y
     
     def find_dist(self, X_test):
         """
@@ -30,6 +33,11 @@ class KNN():
         Returns :
         - dist_ : Distances between each test point and training point
         """
+
+	num_test = X_test.shape[0]
+	num_train = self.X_train.shape[0]
+	dist_ = scipy.spatial.distance.cdist(num_test, num_train)
+
         return dist_
     
     def predict(self, X_test):
