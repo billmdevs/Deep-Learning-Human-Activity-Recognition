@@ -54,7 +54,7 @@ class KNN():
 		for i in range(num_test):
 			nearest_x = np.argsort(dist_[i])
 			nearest_y = [self.y_train[val] for val in nearest_x]
-			labels, counts = np.unique(nearest_y)
+			labels = np.unique(nearest_y)
 			pred[i] = labels[np.argmax(labels)]
 
 		return pred
