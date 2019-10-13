@@ -52,4 +52,14 @@ class KNN():
         - pred: A numpy array of shape (num_test,) containing predicted labels for the
           test data, where y[i] is the predicted label for the test point X[i].  
         """
+
+	dist_ = find_dist(X_test)
+	num_test = dist_.shape[0]
+	pred = np.zeros(num_test, dtype=int)
+	for i in range(num_test):
+		nearest_x = np.argsort(dist_[i])[:k]
+		nearest_y = [self.y_train[val] for val in nearest_x]
+		labels, counts = np.unique(nearest_y)
+		pred[i] = labels[np.argmax(counts)]
+
         return pred
