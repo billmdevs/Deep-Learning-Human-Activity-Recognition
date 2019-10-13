@@ -21,7 +21,7 @@ class KNN():
         """
 	
 	self.X_train = X
-	self.Y_train = y
+	self.y_train = y
     
     def find_dist(self, X_test):
         """
