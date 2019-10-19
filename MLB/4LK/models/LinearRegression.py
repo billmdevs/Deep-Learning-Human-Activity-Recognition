@@ -11,11 +11,11 @@ class LinearRegression():
 		and regularization constant.
 		"""
 
-		self.linear = nn.Linear(3*32*32, 1)
 		self.w = None
 		self.alpha = 0.5
 		self.epochs = 100
 		self.reg_const = 0.05
+		self.linear = torch.nn.Linear(3*32*32, 1)
 	
 
 	def train(self, X_train, y_train):
@@ -27,18 +27,18 @@ class LinearRegression():
 		reg_const = self.reg_const
 		X_train = np.reshape(X_train, (-1, 3*32*32))
 		optimizer = torch.optim.SGD(self.linear.parameters(), reg_const)
-		criterion = torch.nn.MSELoss(reduction=False)
+		criterion = torch.nn.MSELoss(reduction='mean')
 		for epoch in range(epochs):
 			for batch, label in zip(X_train, y_train):
-				batch = np.reshape(batch,(-1,3*32*32))
-				batch = np.array(batch,dtype=np.float32)
-				label = np.array(label,dtype = np.float32)
+				batch = np.reshape(batch, (-1,3*32*32))
+				batch = np.array(batch, dtype=np.float32)
+				label = np.array(label, dtype = np.float32)
 				batch = torch.from_numpy(batch)
 				#print(label)
 				#batch = Variable(torch.tensor(batch).float())
 				#print("batch",batch)
 				label = torch.from_numpy(label)
-				label.resize_(1,1)
+				label.resize_(1, 1)
 				#print("label",label)
 				#label = [label]
 				#print(label.shape)
@@ -48,7 +48,7 @@ class LinearRegression():
 
 				#print(output)
 				# garbage pytorch make a hole for us : add remaining item solved
-				loss = criterion(output,label)
+				loss = criterion(output, label)
 				#optimizer.zero_grad()
 				loss.backward()
 				optimizer.step()
@@ -66,6 +66,5 @@ class LinearRegression():
 		- pred: Predicted labels for the data in X_test. pred is a 1-	dimensional array of length N, and each element is an integer giving the predicted class.
         """
 		pred = self.linear(X_test)
-
 
 		return pred
