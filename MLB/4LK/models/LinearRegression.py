@@ -27,7 +27,7 @@ class LinearRegression():
 		reg_const = self.reg_const
 		X_train = np.reshape(X_train, (-1, 3*32*32))
 		optimizer = torch.optim.SGD(self.linear.parameters(), reg_const)
-		criterion = torch.nn.MSELoss(reduction='mean')
+		criterion = torch.nn.L1Loss(reduction='mean')
 		for epoch in range(epochs):
 			for batch, label in zip(X_train, y_train):
 				batch = np.reshape(batch, (-1,3*32*32))
@@ -46,8 +46,6 @@ class LinearRegression():
 				optimizer.zero_grad()
 				output=self.linear(batch)
 
-				#print(output)
-				# garbage pytorch make a hole for us : add remaining item solved
 				loss = criterion(output, label)
 				#optimizer.zero_grad()
 				loss.backward()
