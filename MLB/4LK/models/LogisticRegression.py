@@ -13,10 +13,9 @@ class LogisticRegression():
 		"""
 		self.w = None
 		self.alpha = 0.5
-		self.epochs = 100
+		self.epochs = 10
 		self.reg_const = 0.05
-		self.linear = torch.nn.Sequential(torch.nn.Linear(3*32*32,3*32*16),torch.nn.ReLU(),torch.nn.Linear(3*32*16,3*32*8),torch.nn.ReLU(),torch.nn.Linear(3*32*8,10))
-
+		self.linear = torch.nn.Linear(3*32*32, 1)
 
 	def train(self, X_train, y_train):
 		"""
@@ -27,16 +26,16 @@ class LogisticRegression():
 		X_train = np.reshape(X_train, (-1, 3*32*32))
 		optimizer = torch.optim.SGD(self.linear.parameters(), reg_const)
 		criterion = torch.nn.CrossEntropyLoss(reduction='mean')
-		for epoch in range(epochs):
+		for epoch in range(0, epochs):
 			for batch, label in zip(X_train, y_train):
-				batch = np.reshape(batch, (-1,3*32*32))
-				batch = np.array(batch,dtype=np.float32)
-				label = np.array(label,dtype = np.float32)
+				batch = np.reshape(batch, (-1, 3*32*32))
+				batch = np.array(batch, dtype=np.float32)
+				label = np.array(0,label)
 				batch = torch.from_numpy(batch)
 				#print(label)
 				#batch = Variable(torch.tensor(batch).float())
 				#print("batch",batch)
-				label = torch.from_numpy(label)
+				label = torch.from_numpy(label).long()
 				label.resize_(1, 1)
 				#print("label",label)
 				#label = [label]
@@ -47,7 +46,7 @@ class LogisticRegression():
 
 				#print(output)
 				# garbage pytorch make a hole for us : add remaining item solved
-				loss = criterion(output, label)
+				loss = criterion(output, label.squeeze(0))
 				#optimizer.zero_grad()
 				loss.backward()
 				optimizer.step()
@@ -63,4 +62,5 @@ class LogisticRegression():
 		Returns:
 		- pred: Predicted labels for the data in X_test. pred is a 1-dimensional array of length N, and each element is an integer giving the predicted class.
         """
+		pred = self.linear(X_test)
 		return pred 
