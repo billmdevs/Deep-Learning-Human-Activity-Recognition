@@ -1,4 +1,4 @@
-# DeepLearning
+# DLearn-Astro
 
 Implementation of various machine and deep learning algorithms.
 Examples of algos used:
