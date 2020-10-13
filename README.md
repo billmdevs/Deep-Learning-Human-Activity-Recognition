@@ -1,6 +1,6 @@
 # DLearn-Astro
 
-Implementation of various machine and deep learning algorithms.
+Implementation of various machine and deep learning algorithms for human activity recognition.
 Examples of algos used:
 
 - Convolutional Neural Networks
