@@ -1,4 +1,4 @@
-# DLearn-Astro
+# DLearn-HAR
 
 Implementation of various machine and deep learning algorithms for human activity recognition based on mobile sensors.
 
