@@ -2,7 +2,7 @@
 
 Implementation of various machine and deep learning algorithms for human activity recognition based on mobile sensors.
 
-The `NeuralNets/har-recog` folder contains the code and data for Human Activity Recognition.
+The `NeuralNets/har-recog` folder contains the paper, code and data for Human Activity Recognition project.
 
 Examples of algos used:
 - Convolutional Neural Networks
